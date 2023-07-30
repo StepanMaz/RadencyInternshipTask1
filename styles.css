@@ -1,0 +1,68 @@
+:root {
+    --table-corner-radius: 4px;
+    --table-header-color: rgb(153, 153, 151);
+    --table-body-color: rgb(233, 234, 243);
+    --table-font-dark: rgb(49, 50, 51);
+    --table-font-light: rgb(125, 125, 130);
+}
+
+body {
+    font-family: 'Roboto', sans-serif; 
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    width: calc(100% - 80px);
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* table header styling*/
+thead {
+    width: 100%;
+    background-color: var(--table-header-color);
+}
+
+th {
+    font-weight: 700;
+    color: white;
+    padding: 7px;
+    text-align: left;
+}
+
+th:first-child {
+    border-radius: var(--table-corner-radius) 0px 0px var(--table-corner-radius);
+}
+
+th:last-child {
+    border-radius: 0px var(--table-corner-radius) var(--table-corner-radius) 0px;
+}
+
+/* table body styling*/
+tbody > tr {
+    background-color: var(--table-body-color);
+}
+
+td {
+    padding: 4px;
+    color: var(--table-font-light);
+    font-weight: 500;
+}
+
+td:nth-child(1), td:nth-child(2) {
+    color: var(--table-font-dark);
+}
+
+/*create note button styling*/
+.create-button {
+    border-radius: 5px;
+    float: right;
+    margin: 10px 40px 50px 0px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
