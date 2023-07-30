@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <table class="center">
+    <button id="open-archive-button" class="right">Open archive</button>
+
+    <table id="main-table" class="center">
         <thead>
             <tr>
                 <th></th>
@@ -18,24 +20,22 @@
                 <th>Category</th>
                 <th>Content</th>
                 <th>Dates</th>
-                <th></th>
+                <th>
+                    <button>
+                        <i class="fa fa-archive"></i>
+                    </button>
+                    <button>
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>icon</td>
-                <td>Shopping list</td>
-                <td>April</td>
-                <td>Task</td>
-                <td>Tomatoes</td>
-                <td>Some dates</td>
-                <td></td>
-            </tr>
         </tbody>
     </table>
 
-    <button class="create-button">Create note</button>
-    
+    <button id="create-note-button" class="create-button right">Create note</button>
+
     <table class="center">
         <thead>
             <tr>
@@ -46,13 +46,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>icon</td>
-                <td>Shopping list</td>
-                <td>12</td>
-                <td>12</td>
-            </tr>
+          
         </tbody>
     </table>
+
+    <dialog id="note-dialog">
+        <button id="close-dialog-button">Close</button>
+        <h2 id="dialog-header">Some header</h2>
+        <div id="dialog-form">
+            <label>Note name</label>
+            <input type="text" id="input-note-name" placeholder="Note name..">
+
+            <label for="category">Category</label>
+            <select id="input-note-category"></select>
+
+            <label>Content</label>
+            <input type="text" id="input-note-content" placeholder="Content..">
+            
+            <label>Dates</label>
+            <div id="dates-container"></div>
+            <button id="add-date-button">+</button>
+
+            <div class="center-items">
+                <button id="submit-button" type="submit">Submit</button>
+            </div>
+        </div>
+    </dialog>
 </body>
+
+<script src="src/main.js" type="module"></script>
+<script src="src/dialog.js" type="module"></script>
+
 </html>

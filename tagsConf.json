@@ -1,0 +1,14 @@
+[
+    {
+        "tag": "task",
+        "icon_url": "/Images/shopping-cart.png"
+    },
+    {
+        "tag": "quote",
+        "icon_url": "/Images/quote.png"
+    },
+    {
+        "tag": "idea",
+        "icon_url": "/Images/idea.png"
+    }
+]

@@ -7,13 +7,26 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif; 
+    font-family: 'Roboto', sans-serif;
+    padding: 40px;
+}
+
+button {
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 16px;
 }
 
 table {
     border-collapse: separate;
     border-spacing: 0px 10px;
-    width: calc(100% - 80px);
+    width: 100%;
+    max-height: 100vmax;
+    overflow: auto;
+}
+
+th, td {
+    padding: 7px 5px;
 }
 
 .center {
@@ -21,7 +34,7 @@ table {
     margin-right: auto;
 }
 
-/* table header styling*/
+/* table header styling */
 thead {
     width: 100%;
     background-color: var(--table-header-color);
@@ -30,7 +43,6 @@ thead {
 th {
     font-weight: 700;
     color: white;
-    padding: 7px;
     text-align: left;
 }
 
@@ -40,15 +52,21 @@ th:first-child {
 
 th:last-child {
     border-radius: 0px var(--table-corner-radius) var(--table-corner-radius) 0px;
+    text-align: right;
 }
 
-/* table body styling*/
+/* table body styling */
 tbody > tr {
     background-color: var(--table-body-color);
 }
 
+tbody img {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
 td {
-    padding: 4px;
     color: var(--table-font-light);
     font-weight: 500;
 }
@@ -57,12 +75,78 @@ td:nth-child(1), td:nth-child(2) {
     color: var(--table-font-dark);
 }
 
-/*create note button styling*/
-.create-button {
-    border-radius: 5px;
-    float: right;
-    margin: 10px 40px 50px 0px;
-    font-weight: 500;
-    font-size: 16px;
+td:last-child {
+    text-align: right;
 }
 
+/* table buttons stiling */
+table button {
+    font-size: 25px;
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+    padding-left: 4px;
+}
+
+table:first-child th:last-child, table:first-child td:last-child {
+    text-align: right;
+}
+
+.create-button {
+    margin: 10px 0px 50px 0px;
+}
+
+.right {
+    float: right;
+}
+
+.center-items {
+    display: flex;
+    justify-content: center;
+}
+
+/* dialog style */
+#note-dialog {
+    top: 20%;
+    max-width: 500px;
+}
+
+#close-dialog-button {
+    float: right;
+}
+
+#submit-button {
+    margin: auto;
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(1px);
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
