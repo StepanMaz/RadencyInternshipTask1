@@ -21,8 +21,8 @@ const submit_button = document.getElementById("submit-button");
 /** @type {HTMLInputElement[]} */
 let date_inputs = [];
 
-add_dates_button.onclick = addDate();
-close_dialog_button.onclick = close();
+add_dates_button.onclick = () => addDate();
+close_dialog_button.onclick = () => close();
 
 /** @param {number} date */
 function addDate(date) {
@@ -30,13 +30,12 @@ function addDate(date) {
     date_input.type = "date";
 
     if(date)
-        date_input.setv
+        date_input.value = new Date(date).toISOString().substring(0,10);
 
     date_inputs.push(date_input);
+
     dates_container.appendChild(date_input);
 }
-
-
 
 function close() {
     dialog.close();
@@ -66,8 +65,8 @@ export function openDialog(onsubmit, data) {
     }
 
     submit_button.onclick = () => {
-        close();
         onsubmit(collect());
+        close();
     }
 
     function updateTags() {
@@ -83,9 +82,10 @@ export function openDialog(onsubmit, data) {
 
     /** @param {Note} data */
     function loadData(data) {
-        note_name.innerHTML = data.name;
+        console.log(data);
+        note_name.value = data.name;
         note_category.value = data.category;
-        note_content.innerHTML = data.content;
+        note_content.value = data.content;
         for (const date of data.dates) {
             addDate(formatDate(date));
         }
@@ -98,7 +98,7 @@ export function openDialog(onsubmit, data) {
             Date.now(),
             note_category.value,
             note_content.value,
-            date_inputs.map(input => input.valueAsNumber)
+            date_inputs.filter(input => input.valueAsDate).map(input => input.valueAsDate.getTime())
         );
     }
 }

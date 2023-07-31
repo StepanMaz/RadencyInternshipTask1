@@ -1,37 +1,53 @@
-import { tagsService } from "./services/tagsService.js";
 import { Note } from "./models/note.js";
 import { renderMainTable } from "./table.js";
 import { openDialog } from "./dialog.js";
+import { initStatistics } from "./statistics";
 
-/** @type Note[] */
-const active_notes = [
+/** @type Note[] & { alternative: Note[] } */
+export const active_notes = [
     new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
     new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
     new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
 ];
-/** @type Note[] */
-const archived_notes = [];
+/** @type Note[] & { alternative: Note[] } */
+export const archived_notes = [];
 
-const notes_swap = createSwaper(active_notes, archived_notes);
+active_notes.alternative = archived_notes;
+archived_notes.alternative = active_notes;
 
-document.getElementById("open-archive-button").onclick = 
-    function openArchive() {
-        renderMainTable(notes_swap()[0]);
-    }
+/** @type Note[] & { alternative: Note[] } */
+let current = active_notes;
 
-document.getElementById("create-note-button").onclick = 
-    function createNote() {
-        console.log(1);
-        openDialog();
-    }
+initStatistics(active_notes, archived_notes);
 
-renderMainTable(notes_swap.first);
+document.getElementById("open-archive-button").addEventListener("click",
+    () => {
+        current = current.alternative;
+        renderMainTable(current);
+    });
 
-function createSwaper(first, second) {
-    const swap = function() {
-        return [swap.first, swap.second] = [swap.second, swap.first];
-    }
-    swap.first = first;
-    swap.second = second;
-    return swap;
-}
+document.getElementById("archive-all-button").addEventListener("click",
+    () => {
+        for (const note of current) {
+            current.alternative.push(note);
+        }
+        current.length = 0;
+
+        current = current.alternative;
+        renderMainTable(current);
+    });
+
+document.getElementById("delete-all-button").addEventListener("click",
+    () => {
+        current.length = 0;
+        renderMainTable(current);
+    });
+
+document.getElementById("create-note-button").addEventListener("click",
+    () => openDialog((newnote) => {
+            active_notes.push(newnote);
+            current = active_notes;
+            renderMainTable(active_notes);
+    }));
+
+renderMainTable(current);
