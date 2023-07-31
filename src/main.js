@@ -1,7 +1,7 @@
 import { Note } from "./models/note.js";
 import { renderMainTable } from "./table.js";
 import { openDialog } from "./dialog.js";
-import { initStatistics } from "./statistics";
+import { initStatistics } from "./statistics.js";
 
 /** @type Note[] & { alternative: Note[] } */
 export const active_notes = [

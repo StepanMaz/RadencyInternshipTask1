@@ -20,7 +20,14 @@ export function renderMainTable(data) {
         const table_row = document.createElement("tr");
         const table_datas = Array(7).fill().map(_ => document.createElement("td"));
 
-        table_datas[0].append(getIcon(note.category));
+        let icon;
+        try{
+            icon = getIcon(note.category)
+        } catch {
+            icon = "None"
+        }
+
+        table_datas[0].append(icon);
         table_datas[1].innerText = note.name;
         table_datas[2].innerText = formatDate(note.creaded);
         table_datas[3].innerText = note.category;

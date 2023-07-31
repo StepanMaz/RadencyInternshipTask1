@@ -7,9 +7,11 @@ const dialog = document.getElementById("note-dialog");
 
 const close_dialog_button = document.getElementById("close-dialog-button");
 
+/** @type {HTMLInputElement} */
 const note_name = document.getElementById("input-note-name");
 /** @type {HTMLSelectElement} */
 const note_category = document.getElementById("input-note-category");
+/** @type {HTMLInputElement} */
 const note_content = document.getElementById("input-note-content");
 
 const dates_container = document.getElementById("dates-container");
@@ -65,8 +67,14 @@ export function openDialog(onsubmit, data) {
     }
 
     submit_button.onclick = () => {
-        onsubmit(collect());
-        close();
+        try {
+            const data = collect()
+
+            onsubmit(data);
+            close();
+        } catch (e) {
+            alert(e)
+        }
     }
 
     function updateTags() {
@@ -93,6 +101,9 @@ export function openDialog(onsubmit, data) {
 
     /** @returns Note */
     function collect() {
+        if(!note_name.value.match(/.+/)) throw new Error("Incorrect name format")
+        if(!note_content.value.match(/.+/)) throw new Error("Incorrect content format")
+
         return new Note(
             note_name.value,
             Date.now(),

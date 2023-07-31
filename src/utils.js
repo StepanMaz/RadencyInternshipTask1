@@ -1,3 +1,5 @@
+import { tagsService } from "./services/tagsService.js";
+
 /** @param {number} utc_time @returns {string} */
 export function formatDate(utc_time) {
     const date = new Date(utc_time);
@@ -14,7 +16,8 @@ export function groupBy(xs, key) {
 /** @param {Note} note @returns {HTMLElement} */
 export function getIcon(tag) {
     const image = document.createElement("img");
-    image.src = tagsService.getUrl(tag);
-    image.alt = "None";
+    const url = tagsService.getUrl(tag)
+    if(!url) throw new Error("tag is not supported");
+    image.src = url;
     return image;
 }
