@@ -5,9 +5,9 @@ import { initStatistics } from "./statistics.js";
 
 /** @type Note[] & { alternative: Note[] } */
 export const active_notes = [
-    new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
-    new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
-    new Note("somename", Date.now(), "task", "shopping", [Date.now(), Date.now()]),
+    new Note("somename", Date.now(), "task", "shopping"),
+    new Note("somename", Date.now(), "task", "shopping"),
+    new Note("somename", Date.now(), "task", "shopping"),
 ];
 /** @type Note[] & { alternative: Note[] } */
 export const archived_notes = [];
@@ -45,9 +45,9 @@ document.getElementById("delete-all-button").addEventListener("click",
 
 document.getElementById("create-note-button").addEventListener("click",
     () => openDialog((newnote) => {
-            active_notes.push(newnote);
-            current = active_notes;
-            renderMainTable(active_notes);
+        active_notes.push(newnote);
+        current = active_notes;
+        renderMainTable(active_notes);
     }));
 
 renderMainTable(current);

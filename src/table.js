@@ -21,7 +21,7 @@ export function renderMainTable(data) {
         const table_datas = Array(7).fill().map(_ => document.createElement("td"));
 
         let icon;
-        try{
+        try {
             icon = getIcon(note.category)
         } catch {
             icon = "None"
@@ -32,7 +32,7 @@ export function renderMainTable(data) {
         table_datas[2].innerText = formatDate(note.creaded);
         table_datas[3].innerText = note.category;
         table_datas[4].innerText = note.content;
-        table_datas[5].innerText = note.dates.map(formatDate).join(', ');
+        table_datas[5].innerText = note.dates.join(', ');
 
         addControlNoteButtons(table_datas[6], data, note);
 
@@ -57,17 +57,17 @@ export function renderMainTable(data) {
         }
     }
 
-   
+
 }
 
 /** @param {Note} note */
 export function editNoteClick(source, note) {
     openDialog(newnote => {
         for (const key in newnote) {
-            if(key in note)
+            if (key in note)
                 note[key] = newnote[key];
         }
-        
+
         renderMainTable(source)
     }, note)
 
@@ -91,7 +91,7 @@ export function archiveNoteClick(source, note) {
 
 function removeFromArray(array, item) {
     const index = array.indexOf(item);
-    
+
     for (let i = index; i < array.length; i++) {
         array[i] = array[i + 1];
     }

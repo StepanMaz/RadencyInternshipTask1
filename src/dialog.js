@@ -14,30 +14,9 @@ const note_category = document.getElementById("input-note-category");
 /** @type {HTMLInputElement} */
 const note_content = document.getElementById("input-note-content");
 
-const dates_container = document.getElementById("dates-container");
-
-const add_dates_button = document.getElementById("add-date-button");
-
 const submit_button = document.getElementById("submit-button");
 
-/** @type {HTMLInputElement[]} */
-let date_inputs = [];
-
-add_dates_button.onclick = () => addDate();
 close_dialog_button.onclick = () => close();
-
-/** @param {number} date */
-function addDate(date) {
-    const date_input = document.createElement("input");
-    date_input.type = "date";
-
-    if(date)
-        date_input.value = new Date(date).toISOString().substring(0,10);
-
-    date_inputs.push(date_input);
-
-    dates_container.appendChild(date_input);
-}
 
 function close() {
     dialog.close();
@@ -45,16 +24,11 @@ function close() {
     clearDialog();
 
     function clearDialog() {
-        dates_container.innerHTML = '';
-        note_name.innerHTML = '';
-        note_category.innerHTML = '';
-        note_content.innerHTML = '';
-        dates_container.innerText = '';
-        note_name.innerText = '';
-        note_category.innerText = '';
-        note_content.innerText = '';
-    
-        date_inputs = [];
+        note_name.value = '';
+        note_category.value = '';
+        note_content.value = '';
+
+        console.log(note_name);
     }
 }
 
@@ -62,7 +36,7 @@ export function openDialog(onsubmit, data) {
     updateTags();
     dialog.showModal();
 
-    if(data) {
+    if (data) {
         loadData(data);
     }
 
@@ -73,7 +47,7 @@ export function openDialog(onsubmit, data) {
             onsubmit(data);
             close();
         } catch (e) {
-            alert(e)
+            alert(e);
         }
     }
 
@@ -83,33 +57,28 @@ export function openDialog(onsubmit, data) {
             const option = document.createElement("option");
             option.value = tag;
             option.innerText = tag.charAt(0).toUpperCase() + tag.slice(1);
-    
+
             note_category.appendChild(option);
         }
     }
 
     /** @param {Note} data */
     function loadData(data) {
-        console.log(data);
         note_name.value = data.name;
         note_category.value = data.category;
         note_content.value = data.content;
-        for (const date of data.dates) {
-            addDate(formatDate(date));
-        }
     }
 
     /** @returns Note */
     function collect() {
-        if(!note_name.value.match(/.+/)) throw new Error("Incorrect name format")
-        if(!note_content.value.match(/.+/)) throw new Error("Incorrect content format")
+        if (!note_name.value.match(/\w+/)) throw new Error("Incorrect name format")
+        if (!note_content.value.match(/\w+/)) throw new Error("Incorrect content format")
 
         return new Note(
             note_name.value,
             Date.now(),
             note_category.value,
-            note_content.value,
-            date_inputs.filter(input => input.valueAsDate).map(input => input.valueAsDate.getTime())
+            note_content.value
         );
     }
 }
